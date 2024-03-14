@@ -26,7 +26,23 @@ class Database {
     const values = [restaurantId, name, description, price];
     return this.db.one(query, values);
   }
+  async getDishToppings(id: any) {
+    const query = "SELECT * FROM dish_toppings WHERE dish_id = $1";
+    return this.db.any(query, [id]);
+  }
+  async getRestaurantById(restaurantId: string) {
+    const query = "SELECT * FROM restaurants WHERE id = $1";
+    return this.db.one(query, [restaurantId]);
+  }
+  async getDishExtras(id: any) {
+    const query = "SELECT * FROM dish_extras WHERE dish_id = $1";
+    return this.db.any(query, [id]);
+  }
 
+  async getDishById(dishId: string) {
+    const query = "SELECT * FROM dishes WHERE id = $1";
+    return this.db.one(query, [dishId]);
+  }
   async addToMenu(restaurantId: string, dishId: string) {
     const query =
       "INSERT INTO menu_items (restaurant_id, dish_id) VALUES ($1, $2) RETURNING *";
