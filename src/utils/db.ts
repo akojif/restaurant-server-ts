@@ -6,11 +6,11 @@ class Database {
   constructor() {
     const pgp = pgPromise({});
     const dbConfig = {
-      host: "localhost",
-      port: 5432,
-      database: "random_restaurant_db",
-      user: "randomdude",
-      password: "gsHo@aIQR+U-DaWqN",
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
     };
     this.db = pgp(dbConfig);
   }
