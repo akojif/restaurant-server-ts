@@ -1,6 +1,6 @@
 import { db } from "../utils/db";
 
-export const menuItemResolver = {
+export const menuItemResolver: any = {
   MenuItem: {
     restaurant: async (parent: any) => {
       return db.getRestaurantById(parent.restaurantId);
@@ -18,9 +18,15 @@ export const menuItemResolver = {
       try {
         const menuItem = await db.addToMenu(restaurantId, dishId);
         return menuItem;
-      } catch (error:any) {
-        throw new Error(`Failed to add dish to menu: ${error.message}`);
+      } catch (error) {
+        if (error instanceof Error) {
+          throw new Error(`Failed to add dish to menu: ${error.message}`);
+        } else {
+          throw new Error("An unknown error occurred while adding dish to menu");
+        }
       }
     },
   },
 };
+
+export default menuItemResolver;
